@@ -6,6 +6,7 @@ vakjes = (16, 16) #number of
 frees = 6 # diameter of tool
 dikte = 16 # depth of material
 speed = 1500 # speed of tool in mm/min
+stepdown = 8
 
 # substract tool size from vakjes and marges
 vakje = (vakje[0] - frees/2,
@@ -24,7 +25,8 @@ for x in xrange(0, vakjes[0]):
     print 'G00 X%d Y%d' % (coords[0],
                            coords[1])
 
-    print 'G01 Z%d' % dikte/2
+    for(step in xrange(1, dikte/stepdown)):
+    print 'G01 Z%d' % dikte - (step*stepdown)
     print 'G01 X%d Y%d' % (coords[0]+vakje[0],
                            coords[1])
 
@@ -37,18 +39,6 @@ for x in xrange(0, vakjes[0]):
     print 'G01 X%d Y%d' % (coords[0],
                            coords[1])
 
-    print 'G01 Z0'
-    print 'G01 X%d Y%d' % (coords[0]+vakje[0],
-                           coords[1])
-
-    print 'G01 X%d Y%d' % (coords[0]+vakje[0],
-                           coords[1]+vakje[1])
-
-    print 'G01 X%d Y%d' % (coords[0],
-                           coords[1]+vakje[1])
-
-    print 'G01 X%d Y%d' % (coords[0],
-                           coords[1])
 
     print 'G00 Z%d' % dikte*frees
 
